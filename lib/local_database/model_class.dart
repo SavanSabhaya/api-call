@@ -7,25 +7,44 @@ String welcomeToJson(List<UserDbModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class UserDbModel {
-  UserDbModel({
-    required this.dbValue,
-  });
+  UserDbModel(
+      {required this.name,
+      required this.gender,
+      required this.email,
+      required this.phone,
+      required this.cell});
 
-  String dbValue;
+  final String name;
+  final String gender;
+  final String email;
+  final String phone;
+  final String cell;
 
   factory UserDbModel.fromJson(Map<String, dynamic> json) => UserDbModel(
-        dbValue: json["data"],
+        name: json["name"],
+        gender: json["gender"],
+        email: json["email"],
+        phone: json["phone"],
+        cell: json["cell"],
       );
 
   Map<String, dynamic> toJson() => {
-        "data": dbValue,
+        "name": name,
+        "gender": gender,
+        "email": email,
+        "phone": phone,
+        "cell": cell,
       };
 }
 
-final String userData = 'userdata';
+final String userData = 'userData';
 
 class UserFields {
-  static final List<String> values = [data];
+  static final List<String> values = [name, gender, email, phone, cell];
 
-  static final String data = 'data';
+  static final String name = 'name';
+  static final String gender = 'gender';
+  static final String email = 'email';
+  static final String phone = 'phone';
+  static final String cell = 'cell';
 }

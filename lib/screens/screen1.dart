@@ -67,7 +67,7 @@ class _HomescreenState extends State<Homescreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(users.nat),
-                  Text(users.gender),
+                  Text('gender: ${users.gender}'),
                   Text(users.cell),
                   Text(users.phone),
                   Text(users.email),
@@ -89,7 +89,6 @@ class _HomescreenState extends State<Homescreen> {
         onPressed: () {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => Homescreenpage()));
-          ResultDatabase.db.getUsers();
           // String username = usernames.text;
         },
       ),

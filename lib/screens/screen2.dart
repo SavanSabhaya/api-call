@@ -8,6 +8,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../local_database/model_class.dart';
 import '../model/user.dart';
 import '../services/user_api.dart';
 
@@ -48,7 +49,7 @@ class Homescreenpage extends StatefulWidget {
 }
 
 class _HomescreenpageState extends State<Homescreenpage> {
-  List<User> user = [];
+  List<UserDbModel> user = [];
   late SharedPreferences sp;
 
   late StreamSubscription subscription;
@@ -92,27 +93,15 @@ class _HomescreenpageState extends State<Homescreenpage> {
             return ListTile(
               leading: CircleAvatar(
                 backgroundColor: Colors.deepOrange,
-                child: ClipOval(child: Image.network(users.picture.thumbnail)),
               ),
-              title: Text(users.fullname),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(users.nat),
+                  Text(users.name),
                   Text(users.gender),
                   Text(users.cell),
                   Text(users.phone),
                   Text(users.email),
-                  Text(users.location.city),
-                  Text(users.location.state),
-                  Text(users.location.country),
-                  Text(users.location.postcode),
-                  Text(users.location.street.number.toString()),
-                  Text(users.location.street.name.toString()),
-                  Text(users.location.timezone.description),
-                  Text(users.location.timezone.offset),
-                  Text(users.location.coordinates.latitude),
-                  Text(users.location.coordinates.longitude)
                 ],
               ),
             );
@@ -156,7 +145,7 @@ class _HomescreenpageState extends State<Homescreenpage> {
           )));
 
   void fetchUser() async {
-    final response = await ResultDatabase.fetchUsers();
+    final response = await ResultDatabase.readAllNotes();
     setState(() {
       user = response;
     });
