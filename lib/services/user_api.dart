@@ -35,14 +35,15 @@ class UseraApi {
       return User.fromMap(e);
     }).toList();
 
-    for (int i = 0; i < user.length; i++) {
-      ResultDatabase.db.create(UserDbModel(
-          name: user[i].fullname,
-          gender: user[i].gender,
-          email: user[i].email,
-          phone: user[i].phone,
-          cell: user[i].cell));
-    }
+    // for (int i = 0; i < user.length; i++) {
+    //   ResultDatabase.db.create(UserDbModel(
+    //     name: user[i].fullname,
+    //     gender: user[i].gender,
+    //     email: user[i].email,
+    //     phone: user[i].phone,
+    //     cell: user[i].cell,
+    //   ));
+    // }
 
     return user;
   }

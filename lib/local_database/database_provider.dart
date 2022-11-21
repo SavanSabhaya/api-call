@@ -14,7 +14,9 @@ class ResultDatabase {
   ResultDatabase._init();
 
   Future<Database> get database async {
-    if (_database != null) return _database!;
+    if (_database != null) {
+      return _database!;
+    }
 
     _database = await _initDB('user.db');
 
@@ -27,23 +29,6 @@ class ResultDatabase {
 
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
-
-//   Future _createDB(Database db, int version) async {
-//     final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
-//     final id = 'INTEGER NOT NULL';
-//     final title = 'TEXT NOT NULL';
-//     final price = 'DOUBLE NOT NULL';
-//     final image = 'TEXT NOT NULL';
-
-//     await db.execute('''
-// CREATE TABLE $amazonCart (
-//   ${ProductFields.id} $id,
-//   ${ProductFields.title} $title,
-//   ${ProductFields.price} $price,
-//   ${ProductFields.image} $image
-//   )
-// ''');
-//   }
 
   Future _createDB(Database db, int version) async {
     final idType = 'INTEGER PRIMARY KEY AUTOINCREMENT';
@@ -70,6 +55,15 @@ CREATE TABLE $userData (
     await dbb.insert(userData, userDbModel.toJson());
 
     // Insert some records in a transaction
+  }
+
+  Future<int> delete(String email) async {
+    final dbb = await db.database;
+    return await dbb.delete(
+      userData,
+      where: '${UserFields.email} = ?',
+      whereArgs: [email],
+    );
   }
 
   static Future<List<UserDbModel>> readAllNotes() async {

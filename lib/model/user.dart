@@ -1,3 +1,4 @@
+import 'package:apicall_rest_api/local_database/model_class.dart';
 import 'package:apicall_rest_api/model/user_dob.dart';
 import 'package:apicall_rest_api/model/user_location.dart';
 import 'package:apicall_rest_api/model/user_name.dart';
@@ -45,5 +46,9 @@ class User {
 
   String get fullname {
     return '${name.title} ${name.first}  ${name.last}';
+  }
+
+  String get photo {
+    return '${picture.thumbnail}${picture.large}${picture.medium}';
   }
 }
