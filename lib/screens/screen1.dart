@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:favorite_button/favorite_button.dart';
-
 import '../local_database/database_provider.dart';
 import '../local_database/model_class.dart';
 
@@ -27,6 +25,14 @@ class _HomescreenState extends State<Homescreen> {
   bool isAleartset = false;
   bool isloding = false;
   bool isFavoritee = false;
+  void fetchUser() async {
+    EasyLoading.show();
+    final response = await UseraApi.fetchUsers();
+    setState(() {
+      user = response;
+    });
+    EasyLoading.dismiss();
+  }
 
   @override
   void initState() {
@@ -35,35 +41,11 @@ class _HomescreenState extends State<Homescreen> {
       if (value) {
         fetchUser();
       }
-      getdata();
     });
   }
 
-  void getdata() async {
-    sp = await SharedPreferences.getInstance();
-  }
-
-  // @override
-  // void dispose() {
-  //   subscription.cancel();
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
-    // void savedata(int index) {
-    //   User(
-    //       picture: user[index].picture,
-    //       location: user[index].location,
-    //       dob: user[index].dob,
-    //       name: user[index].name,
-    //       gender: user[index].gender,
-    //       email: user[index].email,
-    //       phone: user[index].phone,
-    //       cell: user[index].cell,
-    //       nat: user[index].nat);
-    // }
-
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 207, 214, 207),
       appBar: AppBar(
@@ -161,15 +143,6 @@ class _HomescreenState extends State<Homescreen> {
                   child: Text('Ok'))
             ],
           )));
-
-  void fetchUser() async {
-    EasyLoading.show();
-    final response = await UseraApi.fetchUsers();
-    setState(() {
-      user = response;
-    });
-    EasyLoading.dismiss();
-  }
 
   Future<bool> checkConnectivity() async {
     var connectivityResult = await (Connectivity().checkConnectivity());
